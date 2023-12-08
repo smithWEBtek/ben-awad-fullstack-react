@@ -7,9 +7,4 @@ export class HelloResolver {
   hello() {
     return "hello resolved world"
   }
-
-  @Query(() => String)
-  goodbye() {
-    return "buh bye"
-  }
 }
