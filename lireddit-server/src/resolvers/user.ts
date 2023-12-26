@@ -70,7 +70,7 @@ export class UserResolver {
   @Mutation(() => UserResponse)
   async login(
     @Arg('options') options: UsernamePasswordInput,
-    @Ctx() { em }: MyContext
+    @Ctx() { em, req }: MyContext
   ): Promise<UserResponse> {
     const user = await em.findOne(User, { username: options.username })
     if (!user) {
@@ -96,6 +96,33 @@ export class UserResolver {
       }
     }
 
+    // req.session["userId"] = user.id;
+    // req.session["userId"] = user.id;
+    
+  req.session["userId"] = user.id
+
+  // console.log('====* * * req: ', req);
+  // console.log('====* * * req keys: ', Object.keys(req));
+  // =* * * req keys:  [
+    //   '_readableState',   '_events',
+    //   '_eventsCount',     '_maxListeners',
+    //   'socket',           'httpVersionMajor',
+    //   'httpVersionMinor', 'httpVersion',
+    //   'complete',         'rawHeaders',
+    //   'rawTrailers',      'aborted',
+    //   'upgrade',          'url',
+    //   'method',           'statusCode',
+    //   'statusMessage',    'client',
+    //   '_consuming',       '_dumped',
+    //   'next',             'baseUrl',
+    //   'originalUrl',      '_parsedUrl',
+    //   'params',           'query',
+    //   'res',              '_parsedOriginalUrl',
+    //   'sessionStore',     'sessionID',
+    //   'session',          'body',
+    //   '_body',            'length'
+    // ]
+    console.log('====* * * req.session: ', req.session);
     return { user };
   }
 
